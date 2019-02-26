@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Ticket Assignated</h2>
+   	<div class = "container">
+	    <div class="row" >
+	    	<div class="col-sm">
+		    	<form method="" class="ticket">{% csrf_token %}
+			    	<picture>
+	            		<source srcset="" type="image/svg+xml">
+	            			{% if ticket %}
+								<img src="{{ ticket.photo_url }}" height="400" width="400">
+							{% else %}
+								<h1>No hay registros de solicitudes</h1>
+							{% endif %}
+		        	</picture>
+				</form>
+			</div>
+	    	<div class="col-sm"><a href="#">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a>
+	    		<form>
+			<div class = "container">	
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.ticket.name}}">
+							{{form.ticket.label}}
+						</label>
+						{{form.ticket}}
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.ticket_date.name}}">{{form.ticket_date.label}}</label>
+						{{form.ticket_date}}
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.ticket_time.name}}">{{form.ticket_time.label}}</label>
+						{{form.ticket_time}}
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.branch_postal_code.name}}">{{form.branch_postal_code.label}}</label>
+						{{form.branch_postal_code}}
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.store.name}}">{{form.store.label}}</label>
+						{{form.store}}
+						<a href="#">
+						<button class="btn btn-primary btn-sm">Add</button>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.country.name}}">{{form.country.label}}</label>
+						{{form.country}}
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-group">
+						<label for="{{form.total_amount.name}}">{{form.total_amount.label}}</label>
+						{{form.total_amount}}
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="save btn btn-d">Continuar</button>
+		</form>
+	    	</div>
+	    </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Id Consumer</td>
+			<td>Photo Url</td>
+			<td>Valid</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if ticket %}
+		{% for tc in ticket %}
+		<tr>
+			<td>{{ tc.id }}</td>
+			<td><img src="{{ tc.photo_url }}" height="100" width="100"></td>
+			<td>{{ tc.valid }}</td>
+			<td>
+				<a class="btn btn-primary" href="#">Editar</a>
+				<a class="btn btn-danger" href="#">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No hay registros de solicitudes</h1>
+		{% endif %}
+	</tbody>
+</table> 
+
+{% endblock%}
