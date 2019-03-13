@@ -70,11 +70,5 @@ class StoreForm(forms.ModelForm):
       class Meta:
         model = Store
         fields = ['rfc','alias']
-
-      def __init__(self, *args, **kwargs):
-        super(StoreForm, self).__init__(*args, **kwargs)
-        for field in iter(self.fields):
-          if field == 'alias':
-            self.fields[field].widget.atrs.update({
-                'class': 'form-control'
-                 })
+        labels = {'rfc': 'RFC',
+                  'alias': 'Alias'}

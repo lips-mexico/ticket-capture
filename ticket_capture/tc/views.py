@@ -1,3 +1,4 @@
+import pdb
 from .models import Ticket
 from django.shortcuts import render,redirect
 from django.db.models import Q
@@ -26,19 +27,13 @@ class SignUp(generic.CreateView):
 	template_name = 'signup.html'
 
 
-def isValidTicket(request, param):
-		user = request.user 
-		obj = Ticket.objects.filter(id == param)
-		obj.valid = True
-		obj.save()
-		print ('no se guardo este pedo')
-
 class TicketCaptureData(CreateView):
+	pdb.set_trace() #debug
 	models = Capture
 	template_name = 'ticket_capture.html'
 	form_class = TicketCapture
 	second_form_class = TicketDetails
-	success_url = '/'
+	success_url = 'ticket_capture.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(TicketCaptureData, self).get_context_data(**kwargs)
@@ -48,6 +43,16 @@ class TicketCaptureData(CreateView):
 		if 'form2' not in context:
 			context['form2'] = self.second_form_class(self.request.GET)
 		return context
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class(request.POST)
+		if request.method == 'POST':
+			form = TicketCapture(request.POST)
+			if form.is_valid():
+				capture = form.save()
+				return HttpResponseRedirect(self.get_success_url())
+			
 
 class TicketListView(ListView):
 	template_name = 'ticket_list.html'

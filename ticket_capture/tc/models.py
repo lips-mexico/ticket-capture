@@ -23,7 +23,7 @@ class Ticket(models.Model):
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
 
-    def __int__(self):
+    def __unicode__(self):
         return self.id
 
     def save(self, *args, **kwargs):
