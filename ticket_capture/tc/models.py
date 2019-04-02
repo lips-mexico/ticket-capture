@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
-
-
 # Create your models here.
 
 class User(AbstractUser):
@@ -20,11 +18,11 @@ class Ticket(models.Model):
     photo_url = models.CharField(max_length = 200)
     confirmed = models.BooleanField(blank = True, null = True)
     valid = models.BooleanField(blank = True, null = True)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(editable = False)
     updated_at = models.DateTimeField()
 
-    def __unicode__(self):
-        return self.id
+    def __str__(self):
+        return self.photo_url
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
@@ -34,7 +32,7 @@ class Ticket(models.Model):
         return super(Ticket, self).save(*args, **kwargs)
 
 class Store(models.Model):
-    rfc = models.CharField(max_length = 13)
+    rfc = models.CharField(max_length = 13, blank = True, null = True)
     alias = models.CharField(max_length = 50, blank = True, null = True)
     created_at = models.DateTimeField(editable = False)
     updated_at = models.DateTimeField()
@@ -53,12 +51,12 @@ class Store(models.Model):
 class Capture (models.Model):
     captured_by = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'captured_by')
     ticket = models.ForeignKey(Ticket, on_delete = models.CASCADE)
-    ticket_date = models.DateTimeField('ticket date')
-    ticket_time = models.DateTimeField('ticket time')
+    ticket_date = models.DateTimeField('ticket date', blank = True)
+    ticket_time = models.DateTimeField('ticket time', blank = True)
     branch_postal_code = models.IntegerField(default = 0)
     store = models.ForeignKey(Store, on_delete = models.CASCADE)
-    country = models.CharField(max_length = 50)
-    total_amount = models.DecimalField(max_digits = 10, decimal_places = 2)
+    country = models.CharField(max_length = 50, blank = True)
+    total_amount = models.DecimalField(max_digits = 10, decimal_places = 2, blank = True)
     evaluated = models.BooleanField(blank = True, null = True)
     evaluated_by = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'evaluated_by', blank = True, null = True)
     valid = models.BooleanField(blank = False)
@@ -100,7 +98,7 @@ class Category(models.Model):
         return super(Category, self).save(*args, **kwargs)
 
 class Tag (models.Model):
-    description = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 100, blank = True)
     brand = models.ForeignKey(Brand, on_delete = models.CASCADE, null = True, blank = True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null = True, blank = True)
     created_at = models.DateTimeField(editable = False)
@@ -117,7 +115,7 @@ class Item(models.Model):
     capture = models.ForeignKey(Capture, on_delete = models.CASCADE)
     tag = models.ForeignKey(Tag, on_delete = models.CASCADE)
     unit_price = models.DecimalField(max_digits = 10, decimal_places=2, blank = True, null = True)
-    price = models.DecimalField(max_digits = 10, decimal_places = 2)
+    price = models.DecimalField(max_digits = 10, decimal_places = 2, blank = True)
     quantity = models.DecimalField(max_digits = 10, decimal_places=2, blank = True, null = True)
     created_at = models.DateTimeField(editable = False)
     updated_at = models.DateTimeField()

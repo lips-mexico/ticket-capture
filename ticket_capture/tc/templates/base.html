@@ -10,11 +10,11 @@
     <title>LipsWeb</title>
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">LipsWeb</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">LipsWeb</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
           {% if user.is_authenticated %}
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
@@ -23,31 +23,28 @@
                   <span class="sr-only">(current)</span>
               </li>
                 {% if user.is_supervisor %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signup' %}">Register user</a>
-                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'signup' %}" >Register user</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url '' %}" >Controversy Solving</a>
+                </li>
                 {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'ticket_capture' %}" >Typist</a>
-                </div>
-              </li>  
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </div>
-              </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'ticket_capture' %}" >Typist</a>
+                </li>  
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
               {% else %}
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Login</a>
-                  </div>
                 </li>
             {% endif %}
             </ul>
-          </div>
         </nav>
           {% block content %}
           {% endblock %}
-        </div>
-      </div>
     </div>
   </body>
 </html>

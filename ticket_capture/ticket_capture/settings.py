@@ -124,7 +124,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
 
 URL_LOGIN = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

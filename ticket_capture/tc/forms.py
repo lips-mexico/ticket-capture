@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User
 import datetime 
-from .models import Ticket,Capture,Item,Store
+from .models import *
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -29,6 +29,7 @@ class TicketCapture(forms.ModelForm):
     class Meta:
         model = Capture
         fields = [
+          'captured_by',
           'ticket',
           'ticket_date',
           'ticket_time',
@@ -36,9 +37,11 @@ class TicketCapture(forms.ModelForm):
           'store',
           'country',
           'total_amount',
+          'evaluated',
+          'evaluated_by',
+          'valid',
         ]
         labels = {
-          'ticket': 'Ticket',
           'ticket_date': 'Ticket Date',
           'ticket_time': 'Ticket Time',
           'branch_postal_code': 'Branch Postal Code',
@@ -47,28 +50,28 @@ class TicketCapture(forms.ModelForm):
           'total_amount': 'Total Amount',
         }
 
-class Item(forms.ModelForm):
+class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = [
-          'capture',
-          'tag',
           'unit_price', 
           'price',
           'quantity',
         ]
         labels = {
-          'capture': 'Capture',
-          'tag': 'Tag',
           'unit_price': 'Unit Price', 
           'price': 'Price',
           'quantity': 'Quantity',
         }
 
-class StoreForm(forms.ModelForm):
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['description']
+        labels = {'description': 'Description'}
 
-      class Meta:
+class StoreForm(forms.ModelForm):
+    class Meta:
         model = Store
-        fields = ['rfc','alias']
-        labels = {'rfc': 'RFC',
-                  'alias': 'Alias'}
+        fields = ['alias']
+        labels = {'alias': 'Store'}

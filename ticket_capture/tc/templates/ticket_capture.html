@@ -1,33 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Ticket Assignated: <label>{{ ticket.id }}</h2>{% csrf_token %}
+	<h2>Ticket Assignated: <label>{{ ticket.id }}</h2>
 	<div class="row">
-  <div class="column">
-    <picture>
-	    <source srcset="" type="image/svg+xml">
-			{% if ticket %}
-				<img src="{{ ticket.photo_url }}" height="400" width="400">
-			{% else %}
-				<h1>No hay registros de solicitudes</h1>
-			{% endif %}
-	</picture>
-  </div>
-  <form action="" method="POST">
-  <div class="column">
-  		{{form.as_p}}
-	<div class="form-group">
-		<input type="submit" value="Submit">
+  		<div class="column">
+    		<picture>
+	    		<source srcset="" type="image/svg+xml">
+					{% if ticket %}
+						<img src="{{ ticket.photo_url }}" height="400" width="400">
+					{% else %}
+						<h1>No hay registros de solicitudes</h1>
+					{% endif %}
+			</picture>
+		</div>
+		<form action="" method="POST">{% csrf_token %}
+  		<div class="column">
+  			<div class="form-group">
+				<label>{{form.ticket_date.label}}</label>{{form.ticket_date}}
+			</div>
+			<div class="form-group">
+				<label>{{form.ticket_time.label}}</label>{{form.ticket_time}}
+			</div>
+			<div class="form-group">
+				<label>{{form.branch_postal_code.label}}</label>{{form.branch_postal_code}}
+			</div>
+			<div class="form-group">
+				<label>{{form2.alias.label}}</label>{{form2.alias}}
+			</div>
+			<div class="form-group">
+				<label>{{form.country.label}}</label>{{form.country}}
+			</div>
+			<div class="form-group">
+				<label>{{form.total_amount.label}}</label>{{form.total_amount}}
+			</div>
+  			<input type="submit" value="Submit">
+  		</div> 
 	</div>
-  </div>
 </form>
-</div>
 
 <style>
 * {
   box-sizing: border-box;
 }
-
 /* Create two equal columns that floats next to each other */
 .column {
   float: left;
@@ -35,7 +49,6 @@
   padding: 10px;
   height: 400px; /* Should be removed. Only for demonstration */
 }
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
