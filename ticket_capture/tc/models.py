@@ -13,22 +13,26 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    def __int__(self):
+        return self.id
+
 class Ticket(models.Model):
     consumer_id = models.IntegerField(default = 0)
     photo_url = models.CharField(max_length = 200)
     confirmed = models.BooleanField(blank = True, null = True)
     valid = models.BooleanField(blank = True, null = True)
+    times_assigned = models.IntegerField(default = 0)
     created_at = models.DateTimeField(editable = False)
     updated_at = models.DateTimeField()
 
-    def __str__(self):
-        return self.photo_url
+    def __int__(self):
+        return self.id
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.consumer_id:
+        if not self.id:
             self.created_at = timezone.now()
-            self.updated_at = timezone.now()
+        self.updated_at = timezone.now()
         return super(Ticket, self).save(*args, **kwargs)
 
 class Store(models.Model):
@@ -86,7 +90,7 @@ class Brand(models.Model):
 class Category(models.Model):
     description = models.CharField(max_length = 200)
     code = models.IntegerField(default = 0)
-    parent = models.ForeignKey('self', on_delete = models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE,blank = True, null = True)
     created_at = models.DateTimeField(editable = False)
     updated_at = models.DateTimeField()
 

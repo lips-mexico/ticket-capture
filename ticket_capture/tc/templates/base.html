@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="icon" href="../../static/img/lips.ico">
     <title>LipsWeb</title>
   </head>
@@ -24,10 +25,7 @@
               </li>
                 {% if user.is_supervisor %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'signup' %}" >Register user</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url '' %}" >Controversy Solving</a>
+                  <a class="nav-link" href="{% url 'signup' %}">Register user</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">

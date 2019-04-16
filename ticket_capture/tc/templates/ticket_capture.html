@@ -9,34 +9,64 @@
 					{% if ticket %}
 						<img src="{{ ticket.photo_url }}" height="400" width="400">
 					{% else %}
-						<h1>No hay registros de solicitudes</h1>
+						<h1>Ticket not available at the moment</h1>
 					{% endif %}
 			</picture>
 		</div>
-		<form action="" method="POST">{% csrf_token %}
-  		<div class="column">
-  			<div class="form-group">
-				<label>{{form.ticket_date.label}}</label>{{form.ticket_date}}
-			</div>
-			<div class="form-group">
-				<label>{{form.ticket_time.label}}</label>{{form.ticket_time}}
-			</div>
-			<div class="form-group">
-				<label>{{form.branch_postal_code.label}}</label>{{form.branch_postal_code}}
-			</div>
-			<div class="form-group">
-				<label>{{form2.alias.label}}</label>{{form2.alias}}
-			</div>
-			<div class="form-group">
-				<label>{{form.country.label}}</label>{{form.country}}
-			</div>
-			<div class="form-group">
-				<label>{{form.total_amount.label}}</label>{{form.total_amount}}
-			</div>
-  			<input type="submit" value="Submit">
-  		</div> 
+		{% if ticket %}
+			<form action="" method="POST">{% csrf_token %}
+  				<div class="column">
+  					<div class="form-group">
+						<label>{{form.ticket_date.label}}</label>
+						<input id="ticket_date" type="text" name="ticket_date" placeholder="YYYY-MM-DD">
+					</div>
+					<div class="form-group">
+						<label>{{form.ticket_time.label}}</label>
+						<input id="ticket_time" type="text" name="ticket_time" placeholder="HH:MM">
+					</div>
+					<div class="form-group">
+						<label>{{form.branch_postal_code.label}}</label>
+						<input id="branch_postal_code" type="text" name="branch_postal_code" placeholder="Codigo Postal">
+					</div>
+					<div class="form-group">
+						<label>{{form2.alias.label}}</label>
+						<input id="alias" type="text" name="alias" placeholder="Alias de Tienda eje:Oxxo">
+					</div>
+					<div class="form-group">
+						<label>{{form.country.label}}</label>
+						<input id="country" type="text" name="country" placeholder="Pais">
+					</div>
+					<div class="form-group">
+						<label>{{form.total_amount.label}}</label>
+						<input id="total_amount" type="text" name="total_amount" placeholder="Total de Compra">
+					</div>
+		  			<input type="submit" value="Save">
+  				</div> 
+			</form>
+			{% else %}
+				
+			{% endif %}
 	</div>
-</form>
+	<script type="text/javascript">
+	function assingdata(){
+		var ticket_date = document.getElementById('ticket_date').value;
+		var ticket_time = document.getElementById('ticket_time').value;
+		var branch_postal_code = document.getElementById('branch_postal_code').value;
+		var alias = document.getElementById('alias').value;
+		var country = document.getElementById('country').value;
+		var total_amount = document.getElementById('total_amount').value;
+		
+		{{form.ticket_date}} = ticket_date;
+		{{form.ticket_time}} = ticket_time;
+		{{form.branch_postal_code}} = branch_postal_code;
+		{{form2.alias}} = alias;
+		{{form.country}} = country;
+		{{form.total_amount}} =total_amount;
+	}
+	function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
+</script>
 
 <style>
 * {
