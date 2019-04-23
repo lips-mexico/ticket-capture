@@ -54,6 +54,8 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = [
+          'capture',
+          'tag',
           'unit_price', 
           'price',
           'quantity',
@@ -75,3 +77,11 @@ class StoreForm(forms.ModelForm):
         model = Store
         fields = ['alias']
         labels = {'alias': 'Store'}
+
+class ControversySolving(forms.Form):
+  """docstring for ControversySolving"""
+
+  def __init__(self, arg):
+    super(ControversySolving, self).__init__()
+    self.arg = arg
+    

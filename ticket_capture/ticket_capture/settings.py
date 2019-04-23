@@ -78,9 +78,14 @@ WSGI_APPLICATION = 'ticket_capture.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'NAME': 'django_bd',
+        'USER': 'diego',
+        'PASSWORD': 'diego831',
+        'HOST': 'localhost',
+        'PORT': '8000',
+        #'OPTIONS': {
+        #    'read_default_file': '/etc/mysql/my.cnf',
+        #},
     }
 }
 

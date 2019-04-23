@@ -7,32 +7,52 @@
     		<picture>
 	    		<source srcset="" type="image/svg+xml">
 					{% if capture %}
-						<img src="{{ capture.ticket.photo_url }}" height="400" width="400">
+						<img src="{{ capture.photo_url }}" height="400" width="400">
 					{% else %}
 						<h1>No hay registros de solicitudes</h1>
 					{% endif %}
 			</picture>
 		</div>
-		<form action="" method="POST">{% csrf_token %}
+		<form 	id = "itemForm" action="" method="POST">{% csrf_token %}
   		<div class="column">
   			<div class="form-group">
-				<label>{{form2.description.label}}</label>{{form2.description}}
+				<label>Descripcion</label>
+				<input id="description" type="text" name="description" placeholder="Descripcion">
 			</div>
   			<div class="form-group">
-				<label>{{form.unit_price.label}}</label>{{form.unit_price}}
+				<label>Precio Unitario</label>
+				<input id="unit_price" type="text" name="unit_price" placeholder="Precio Unitario">
 			</div>
 			<div class="form-group">
-				<label>{{form.price.label}}</label>{{form.price}}
+				<label>Precio Total</label>
+				<input id="price" type="text" name="price" placeholder="Price">
 			</div>
 			<div class="form-group">
-				<label>{{form.quantity.label}}</label>{{form.quantity}}
+				<label>Cantidad</label>
+				<input id="quantity" type="text" name="text" placeholder="Cantidad">
 			</div>
 
-  			<input type="submit" value="Submit">
+  			<input type="submit" value="New Item" onclick="assingdata()" name ="__newItem">
+  			<input type="submit" value="New Ticket" onclick = "assingdata()" name="__newTicket">
   		</div> 
 	</div>
 </form>
-
+<script type="text/javascript">
+	function assingdata(){
+		var description = document.getElementById('description').value;
+		var unit_price = document.getElementById('unit_price').value;
+		var price = document.getElementById('price').value;
+		var quantity = document.getElementById('quantity').value;
+		
+		{{form2.description}} = description;
+		{{form.unit_price}} = unit_price;
+		{{form.price}} = price;
+		{{form.quantity}} = quantity;
+	}
+	function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
+</script>
 <style>
 * {
   box-sizing: border-box;
