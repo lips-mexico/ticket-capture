@@ -1,4 +1,5 @@
 import pdb
+import json, shutil, os
 from datetime import datetime
 from .models import Ticket, Store
 from django.shortcuts import render,redirect
@@ -8,7 +9,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
-from django.views import generic
+from django.views import generic, View
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from django.utils import timezone
@@ -258,3 +259,53 @@ class TicketListView(ListView):
 	template_name = 'ticket_list.html'
 	queryset = Ticket.objects.all()
 	context_object_name = 'ticket'
+
+
+def Category_json(request):
+	def get_category_json():
+		links = []
+		categories = Category.objects.all()
+		for x in categories:
+			cat = Category.objects.filter(parent_id = x.id)
+			for d in cat:
+				links.append((x.description,d.description))
+		#print("links: ",links)
+		#pdb.set_trace()
+		parents, children = zip(*links)
+		root_nodes = {x for x in parents if x not in children}
+		for node in root_nodes:
+		    links.append(('Root', node))
+		#print("root_nodes: ", root_nodes)
+		#pdb.set_trace()
+		def get_nodes(node):
+			#print('hola mundo')
+			d = {}
+			d['name'] = node
+			children = get_children(node)
+			if children:
+				d['children'] = [get_nodes(child) for child in children]
+			return d
+
+		def get_children(node):
+			return [x[1] for x in links if x[0] == node]
+		#pdb.set_trace()	
+		tree = get_nodes('Root')
+		#print (tree)
+		return tree
+		#with open('category.json', 'w') as file:
+		#	json.dump(tree, file, indent=4)
+
+	template_name = 'category.html'
+	
+	categories = get_category_json()
+	print (categories)
+	categories_json = json.dumps(categories)
+	#create_json = get_category_json()
+	#try: 
+	#	fh = open('tc/category.json', 'r')
+	#	os.remove('tc/category.json')
+	#	shutil.move('category.json', 'tc/')
+	#except FileNotFoundError: 
+	#	shutil.move('category.json', 'tc/')
+
+	return render(request,template_name,context={'categories': categories_json})

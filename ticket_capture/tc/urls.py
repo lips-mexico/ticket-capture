@@ -5,5 +5,6 @@ urlpatterns = [
 	path('ticket_capture', views.TicketCaptureData.as_view(), name='ticket_capture'),
 	path('item_capture', views.ItemCapture.as_view(), name='item_capture'),
 	path('ticket_list', views.TicketListView.as_view(), name='ticket_list'),
+	path('category', views.Category_json, name='category')
 	#path('controversy', views.ControversySolving.as_view(), name='controversy'),
 ]

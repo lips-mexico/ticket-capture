@@ -1,0 +1,34 @@
+{
+    "name": "Root",
+    "children": [
+        {
+            "name": "Category",
+            "children": [
+                {
+                    "name": "Telefonia",
+                    "children": [
+                        {
+                            "name": "Movil",
+                            "children": [
+                                {
+                                    "name": "Equipo",
+                                    "children": [
+                                        {
+                                            "name": "Analogo"
+                                        },
+                                        {
+                                            "name": "Inteligente"
+                                        },
+                                        {
+                                            "name": "Phablets"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+USE django_bd;
+LOAD DATA
+LOCAL INFILE 'home/diego/Documents/prueba.csv'
+INTO TABLE tc_category
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n';
